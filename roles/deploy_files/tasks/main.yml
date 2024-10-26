@@ -22,12 +22,15 @@
     repo: "{{ repo_url }}"
     dest: "{{ directory_dest }}"
     update: yes
+- name: Bring down Docker Compose services
+  shell: "docker-compose down"
+  args:
+    chdir: "{{ directory_dest }}"
 - name: Change the directory and start the application
   shell: "docker-compose up -d"
   args:
     chdir: "{{ directory_dest }}"
   register: compose_status
-
 - name: Debug Docker Compose output
   debug:
     var: compose_status
