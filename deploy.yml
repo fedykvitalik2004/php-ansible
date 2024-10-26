@@ -1,0 +1,5 @@
+- name: Set up and deploy application on AWS EC2
+  hosts: ec2_instance
+  become: yes
+  roles:
+    - deploy_files

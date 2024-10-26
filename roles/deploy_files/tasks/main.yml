@@ -1,0 +1,29 @@
+- name: Update apt package index
+  apt:
+    update_cache: yes
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+    state: present
+- name: Try to start a basic image in docker
+  docker_container:
+    name: hello-world
+    image: hello-world
+    state: started
+    recreate: no
+- name: Install Docker Compose
+  apt:
+    name:
+      - docker-compose
+    state: present
+- name: Clone the GitHub repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ directory_dest }}"
+    update: yes
+- name: Change the directory
+  shell: "docker-compose up -d"
+  args:
+    chdir: "{{ directory_dest }}"
+
