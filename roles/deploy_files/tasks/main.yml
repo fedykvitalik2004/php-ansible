@@ -20,10 +20,12 @@
   shell: "docker-compose down"
   args:
     chdir: "{{ directory_dest }}"
-- name: Delete all containers, including stopped
-  shell: "docker rm $(docker ps -a -q)"
-- name: Delete all images available 
-  shell: "docker rmi $(docker images -a -q)"
+- name: Delete all stopped containers
+  shell: docker container prune -f
+  ignore_errors: yes
+- name: Delete all unused images
+  shell: docker image prune -a -f
+  ignore_errors: yes
 - name: Change the directory and start the application
   shell: "docker-compose up -d"
   args:
