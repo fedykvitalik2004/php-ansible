@@ -22,12 +22,12 @@
     repo: "{{ repo_url }}"
     dest: "{{ directory_dest }}"
     update: yes
-- name: Delete all images available 
-  shell: "docker rmi $(docker images -a -q)"
 - name: Bring down Docker Compose services
   shell: "docker-compose down"
   args:
     chdir: "{{ directory_dest }}"
+- name: Delete all images available 
+  shell: "docker rmi $(docker images -a -q)"
 - name: Change the directory and start the application
   shell: "docker-compose up -d"
   args:
