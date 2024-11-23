@@ -6,12 +6,6 @@
     name:
       - docker.io
     state: present
-- name: Try to start a basic image in docker
-  docker_container:
-    name: hello-world
-    image: hello-world
-    state: started
-    recreate: no
 - name: Install Docker Compose
   apt:
     name:
